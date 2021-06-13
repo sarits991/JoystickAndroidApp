@@ -43,7 +43,14 @@ public class MainViewModel extends BaseObservable {
     }
 
     public void throttleChange(float value){
-        System.out.println("in vm - throttle " + value);
         this.fgLogic.setThrottle(value);
+    }
+
+    public void aileronChange(float value){
+        this.fgLogic.setAileron(value);
+    }
+
+    public void elevatorChange(float value){
+        this.fgLogic.setElevator(value);
     }
 }

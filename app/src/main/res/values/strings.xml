@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">JoystickAndroidApp</string>
+    <string name="ip_text">Ip</string>
+    <string name="port_text">Port</string>
+    <string name="connect_button">Connect</string>
 </resources>

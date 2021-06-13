@@ -34,7 +34,6 @@ public class FlightSimulatorLogic {
             try {
                 socket = new Socket(fgProperties.getIp(), Integer.parseInt(fgProperties.getPort()));
                 out = new PrintWriter(socket.getOutputStream(), true);
-                System.out.println("connected");
             } catch (IOException e) {
                 e.printStackTrace();
 
@@ -45,7 +44,6 @@ public class FlightSimulatorLogic {
     public void setRudder(float value)
     {
         executor.execute(() -> {
-                System.out.println("in logic - rudder " + value);
                 out.print("set /controls/flight/rudder " + value + "\r\n");
                 out.flush();
         });
@@ -54,10 +52,24 @@ public class FlightSimulatorLogic {
     public void setThrottle(float value)
     {
         executor.execute(() -> {
-            System.out.println("in logic - throttle " + value);
             out.print("set /controls/engines/current-engine/throttle " +value+ "\r\n");
             out.flush();
-            System.out.println("finish logic - throttle " + value);
+        });
+    }
+
+    public void setElevator(float value)
+    {
+        executor.execute(() -> {
+            out.print("set /controls/flight/elevator " + value + "\r\n");
+            out.flush();
+        });
+    }
+
+    public void setAileron(float value)
+    {
+        executor.execute(() -> {
+            out.print("set /controls/flight/aileron " +value+ "\r\n");
+            out.flush();
         });
     }
 }

@@ -11,12 +11,22 @@ import android.widget.SeekBar;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding mainBinding;
+    Joystick joystick;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         mainBinding.setViewModel(new MainViewModel());
+
+        joystick = (Joystick) findViewById(R.id.joystick);
+
+        joystick.setJoystickOnChange((a,e)->{
+            MainViewModel vm = mainBinding.getViewModel();
+            vm.aileronChange(a);
+            vm.elevatorChange(e);
+        });
 
         SeekBar rudder = ((SeekBar)findViewById(R.id.rudderSeekBar));
 
