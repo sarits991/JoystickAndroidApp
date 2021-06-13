@@ -9,8 +9,16 @@ import androidx.databinding.Bindable;
 public class MainViewModel extends BaseObservable {
     private FlightSimulatorLogic fgLogic;
 
+    private String validationMessage;
+
     public MainViewModel(){
         this.fgLogic = new FlightSimulatorLogic();
+        this.validationMessage = "";
+    }
+
+    @Bindable
+    public String getValidationMessage() {
+        return validationMessage;
     }
 
     @Bindable
@@ -33,9 +41,26 @@ public class MainViewModel extends BaseObservable {
         notifyPropertyChanged(BR.port);
     }
 
-    public void onClick() {
+    public void setValidationMessage(String toastMessage) {
+        this.validationMessage = toastMessage;
+        notifyPropertyChanged(BR.validationMessage);
+    }
 
-        this.fgLogic.connect();
+    public void isConnectClick() {
+        if(isDataValid()){
+            this.fgLogic.connect();
+        }
+        else{
+            setValidationMessage("Invalid data");
+        }
+    }
+
+    public boolean isDataValid(){
+        if(this.fgLogic.getFgProperties().getPort().isEmpty() || this.fgLogic.getFgProperties().getIp().isEmpty())
+        {
+            return false;
+        }
+        return true;
     }
 
     public void rudderChange(float value){

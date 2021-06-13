@@ -2,6 +2,7 @@ package android.joystickandroidapp.model;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,6 +18,7 @@ public class FlightSimulatorLogic {
     {
         this.fgProperties = new FlightSimulatorProperties();
         this.executor = Executors.newFixedThreadPool(1);
+        this.socket = new Socket();
     }
 
     public FlightSimulatorProperties getFgProperties() {
@@ -32,11 +34,12 @@ public class FlightSimulatorLogic {
         executor.execute(() -> {
 
             try {
-                socket = new Socket(fgProperties.getIp(), Integer.parseInt(fgProperties.getPort()));
+                socket.connect(new InetSocketAddress(fgProperties.getIp(), Integer.parseInt(fgProperties.getPort())), 2000);
                 out = new PrintWriter(socket.getOutputStream(), true);
-            } catch (IOException e) {
-                e.printStackTrace();
 
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         });
     }
