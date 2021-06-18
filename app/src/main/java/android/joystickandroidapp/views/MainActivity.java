@@ -1,12 +1,16 @@
 package android.joystickandroidapp.views;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
 import android.joystickandroidapp.R;
 import android.joystickandroidapp.databinding.ActivityMainBinding;
 import android.joystickandroidapp.viewModel.MainViewModel;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,5 +79,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    @BindingAdapter({"validationMessage"})
+    public static void runMe(View view, String message) {
+        if (message != null) {
+            Toast.makeText(view.getContext(), message, Toast.LENGTH_LONG).show();
+        }
     }
 }

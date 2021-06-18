@@ -1,6 +1,5 @@
 package android.joystickandroidapp.model;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -39,7 +38,6 @@ public class FlightSimulatorLogic {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println(e.getMessage());
             }
         });
     }

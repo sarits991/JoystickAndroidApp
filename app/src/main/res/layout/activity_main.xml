@@ -38,7 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:onClick="@{()-> viewModel.isConnectClick()}"
-            android:text="@string/connect_button" />
+            android:text="@string/connect_button"
+            tools:validationMessage="@{viewModel.validationMessage}"/>
 
         <SeekBar
             android:id="@+id/rudderSeekBar"
@@ -53,9 +54,9 @@
             android:layout_height="wrap_content"
             android:max="20"
             android:min="0"
-          />
+            />
 
-        <android.joystickandroidapp.views.Joystick
+       <android.joystickandroidapp.views.Joystick
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/joystick"/>
