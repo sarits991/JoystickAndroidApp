@@ -1,10 +1,15 @@
 package android.joystickandroidapp.model;
 
+import androidx.databinding.library.baseAdapters.BR;
+import androidx.lifecycle.LiveData;
+
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class FlightSimulatorLogic {
 
@@ -12,6 +17,7 @@ public class FlightSimulatorLogic {
     private Socket socket;
     private PrintWriter out;
     private ExecutorService executor;
+
 
     public FlightSimulatorLogic()
     {
@@ -28,18 +34,35 @@ public class FlightSimulatorLogic {
         this.fgProperties = fgProperties;
     }
 
-    public void connect ()  {
+    public Future<Boolean> connect ()  {
 
-        executor.execute(() -> {
+       /* Future<Boolean> f =  executor.submit(() -> { new Callable<Boolean>(){
 
-            try {
-                socket.connect(new InetSocketAddress(fgProperties.getIp(), Integer.parseInt(fgProperties.getPort())), 2000);
-                out = new PrintWriter(socket.getOutputStream(), true);
+            @Override
+            public Boolean call() throws Exception {
+                try {
+                    socket.connect(new InetSocketAddress(fgProperties.getIp(), Integer.parseInt(fgProperties.getPort())), 2000);
+                    out = new PrintWriter(socket.getOutputStream(), true);
 
-            } catch (Exception e) {
-                e.printStackTrace();
+                } catch (Exception e) {
+                    return false;
+                }
+
+                return true;
+            }
+        });*/
+
+        Future<Boolean> f = executor.submit(new Callable<Boolean>() {
+            @Override
+            public Boolean call() throws Exception {
+
+              socket.connect(new InetSocketAddress(fgProperties.getIp(), Integer.parseInt(fgProperties.getPort())), 2000);
+              out = new PrintWriter(socket.getOutputStream(), true);
+              return true;
             }
         });
+
+        return f;
     }
 
     public void setRudder(float value)

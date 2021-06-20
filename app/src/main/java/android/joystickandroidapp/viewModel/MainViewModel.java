@@ -5,6 +5,8 @@ import android.joystickandroidapp.model.FlightSimulatorLogic;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import java.util.concurrent.Future;
+
 
 public class MainViewModel extends BaseObservable {
     private FlightSimulatorLogic fgLogic;
@@ -47,11 +49,21 @@ public class MainViewModel extends BaseObservable {
     }
 
     public void isConnectClick() {
-        if(isDataValid()){
-            this.fgLogic.connect();
-        }
-        else{
+
+        if(!isDataValid()) {
             setValidationMessage("Invalid data");
+            return;
+        }
+        setValidationMessage("try to connect");
+        Future<Boolean> f = this.fgLogic.connect();
+        try{
+            Boolean isConnect = f.get();
+            if(isConnect) {
+                setValidationMessage("connect successfully");
+            }
+        }
+        catch (Exception e) {
+            setValidationMessage("failed to connect");
         }
     }
 

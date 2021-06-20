@@ -18,7 +18,7 @@ public class Joystick extends View {
     private float xCenter;
     private float yCenter;
     private float innerRadius = 150;
-    private float externalRadius = 500;
+    private float externalRadius = 400;
     private JoystickOnChange joystickOnChange;
     private Paint paint;
 

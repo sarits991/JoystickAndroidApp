@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.MainActivity">
 
     <data>
@@ -34,6 +35,7 @@
 
 
         <Button
+            android:id="@+id/connectButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -41,25 +43,50 @@
             android:text="@string/connect_button"
             tools:validationMessage="@{viewModel.validationMessage}"/>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+
+
+            <SeekBar
+                android:id="@+id/throttleSeekBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:max="20"
+                android:min="0"
+                android:rotation="-90"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/joystick"
+                app:layout_constraintTop_toTopOf="parent"
+                android:scrollY="170dp"
+                tools:ignore="MissingConstraints,NotSibling"
+
+                />
+
+
+            <android.joystickandroidapp.views.Joystick
+                android:id="@+id/joystick"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="50dp"
+                android:layout_weight="1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
         <SeekBar
             android:id="@+id/rudderSeekBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:layout_marginBottom="50dp"
             android:max="20"
             android:min="-20" />
 
-        <SeekBar
-            android:id="@+id/throttleSeekBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="20"
-            android:min="0"
-            />
-
-       <android.joystickandroidapp.views.Joystick
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/joystick"/>
 
     </LinearLayout>
 </layout>
