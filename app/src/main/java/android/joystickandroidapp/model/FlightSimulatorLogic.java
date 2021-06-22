@@ -16,7 +16,6 @@ import java.util.concurrent.Future;
 public class FlightSimulatorLogic {
 
     private FlightSimulatorProperties fgProperties;
-    private Socket socket;
     private PrintWriter out;
     private ExecutorService executor;
 
@@ -24,7 +23,6 @@ public class FlightSimulatorLogic {
     {
         this.fgProperties = new FlightSimulatorProperties();
         this.executor = Executors.newFixedThreadPool(1);
-        this.socket = new Socket();
     }
 
     public FlightSimulatorProperties getFgProperties() {
@@ -37,9 +35,10 @@ public class FlightSimulatorLogic {
 
     public Future<Boolean> connect ()  {
         return executor.submit(() -> {
-          socket.connect(new InetSocketAddress(fgProperties.getIp(), Integer.parseInt(fgProperties.getPort())), 2000);
-          out = new PrintWriter(socket.getOutputStream(), true);
-          return true;
+            Socket socket = new Socket();
+            socket.connect(new InetSocketAddress(fgProperties.getIp(), Integer.parseInt(fgProperties.getPort())), 2000);
+            out = new PrintWriter(socket.getOutputStream(), true);
+            return true;
         });
     }
 
