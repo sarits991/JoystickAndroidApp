@@ -2,7 +2,9 @@ package android.joystickandroidapp.model;
 
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -17,7 +19,6 @@ public class FlightSimulatorLogic {
     private Socket socket;
     private PrintWriter out;
     private ExecutorService executor;
-
 
     public FlightSimulatorLogic()
     {
@@ -35,34 +36,11 @@ public class FlightSimulatorLogic {
     }
 
     public Future<Boolean> connect ()  {
-
-       /* Future<Boolean> f =  executor.submit(() -> { new Callable<Boolean>(){
-
-            @Override
-            public Boolean call() throws Exception {
-                try {
-                    socket.connect(new InetSocketAddress(fgProperties.getIp(), Integer.parseInt(fgProperties.getPort())), 2000);
-                    out = new PrintWriter(socket.getOutputStream(), true);
-
-                } catch (Exception e) {
-                    return false;
-                }
-
-                return true;
-            }
-        });*/
-
-        Future<Boolean> f = executor.submit(new Callable<Boolean>() {
-            @Override
-            public Boolean call() throws Exception {
-
-              socket.connect(new InetSocketAddress(fgProperties.getIp(), Integer.parseInt(fgProperties.getPort())), 2000);
-              out = new PrintWriter(socket.getOutputStream(), true);
-              return true;
-            }
+        return executor.submit(() -> {
+          socket.connect(new InetSocketAddress(fgProperties.getIp(), Integer.parseInt(fgProperties.getPort())), 2000);
+          out = new PrintWriter(socket.getOutputStream(), true);
+          return true;
         });
-
-        return f;
     }
 
     public void setRudder(float value)

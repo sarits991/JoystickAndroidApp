@@ -4,19 +4,32 @@ import android.joystickandroidapp.BR;
 import android.joystickandroidapp.model.FlightSimulatorLogic;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
 import java.util.concurrent.Future;
 
 
 public class MainViewModel extends BaseObservable {
-    private FlightSimulatorLogic fgLogic;
 
+    private FlightSimulatorLogic fgLogic;
     private String validationMessage;
+    private MutableLiveData<Boolean> isConnected;
 
     public MainViewModel(){
         this.fgLogic = new FlightSimulatorLogic();
         this.validationMessage = "";
     }
+
+    public MutableLiveData<Boolean> getIsConnected(){
+        if(this.isConnected == null) {
+            this.isConnected = new MutableLiveData<>();
+            this.isConnected.setValue(false);
+        }
+        return this.isConnected;
+    }
+
 
     @Bindable
     public String getValidationMessage() {
@@ -52,6 +65,7 @@ public class MainViewModel extends BaseObservable {
 
         if(!isDataValid()) {
             setValidationMessage("Invalid data");
+            this.isConnected.setValue(false);
             return;
         }
         setValidationMessage("try to connect");
@@ -60,9 +74,11 @@ public class MainViewModel extends BaseObservable {
             Boolean isConnect = f.get();
             if(isConnect) {
                 setValidationMessage("connect successfully");
+                this.isConnected.setValue(true);
             }
         }
         catch (Exception e) {
+            this.isConnected.setValue(false);
             setValidationMessage("failed to connect");
         }
     }

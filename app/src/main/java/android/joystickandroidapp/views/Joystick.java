@@ -6,10 +6,7 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-
 import androidx.annotation.Nullable;
-
-import com.google.android.material.shape.ShapePath;
 
 public class Joystick extends View {
 
@@ -47,12 +44,20 @@ public class Joystick extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        paint.setARGB(255,50,50,50);
+        paint.setARGB(255,0, 153, 255);
         // Draw the background
         canvas.drawCircle(xCenter, yCenter, externalRadius, paint);
-        paint.setARGB(255,0,0,255);
+
+        paint.setARGB(255,0, 61, 102);
         // Draw the circle border
         canvas.drawCircle(xPosition, yPosition, innerRadius, paint);
+
+        paint.setARGB(255,204, 235, 255);
+        canvas.drawCircle(xPosition, yPosition, 100, paint);
+
+        paint.setARGB(255,230, 245, 255);
+        // Draw the inner circle
+        canvas.drawCircle(xPosition, yPosition, 80, paint);
     }
 
 
@@ -68,6 +73,9 @@ public class Joystick extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if(!isEnabled())
+            return false;
+
         if(MotionEvent.ACTION_UP != event.getAction()) {
             xPosition = event.getX();
             yPosition = event.getY();

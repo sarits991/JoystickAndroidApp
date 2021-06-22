@@ -3,6 +3,10 @@ package android.joystickandroidapp.views;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+
+import android.joystickandroidapp.BR;
 import android.joystickandroidapp.R;
 import android.joystickandroidapp.databinding.ActivityMainBinding;
 import android.joystickandroidapp.viewModel.MainViewModel;
@@ -24,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         mainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         mainBinding.setViewModel(new MainViewModel());
 
-        joystick = (Joystick) findViewById(R.id.joystick);
+        joystick = findViewById(R.id.joystick);
 
         joystick.setJoystickOnChange((a,e)->{
             MainViewModel vm = mainBinding.getViewModel();
@@ -32,9 +36,18 @@ public class MainActivity extends AppCompatActivity {
             vm.elevatorChange(e);
         });
 
-        SeekBar rudder = ((SeekBar)findViewById(R.id.rudderSeekBar));
+        SeekBar rudder = findViewById(R.id.rudderSeekBar);
 
-        SeekBar throttle = ((SeekBar)findViewById(R.id.throttleSeekBar));
+        SeekBar throttle = findViewById(R.id.throttleSeekBar);
+
+        LiveData<Boolean> mutable = mainBinding.getViewModel().getIsConnected();
+
+        mutable.observe(this, isConnect -> {
+            rudder.setEnabled(isConnect);
+            throttle.setEnabled(isConnect);
+            joystick.setEnabled(isConnect);
+        });
+
 
         rudder.setOnSeekBarChangeListener(
                 new SeekBar.OnSeekBarChangeListener() {
