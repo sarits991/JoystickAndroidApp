@@ -56,6 +56,6 @@ The following instructions will guide you how to install FlightGear and run the 
    * The controls in the view (joystick and seek bars) will be enabled only after connection to the simulator
    
 ## Class Diagram
-The class diagram has three layers according to MVC architecture : Model, Controller, View
+The class diagram has three layers according to MVVM architecture : Model, ViewModel, View
 
 ![ClassDiagram](https://github.com/sarits991/JoystickAndroidApp/blob/develop/attached_files/ClassDiagram.png)
