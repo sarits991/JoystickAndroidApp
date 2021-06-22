@@ -1,6 +1,8 @@
 # Android App Remote Control Joystick
 
  An android app with remote control joystick on flight gear.
+ 
+ 
  ![Joystick Emulator](https://github.com/sarits991/JoystickAndroidApp/blob/develop/attached_files/JoystickEmulator.PNG)
  
 ## Getting Started
