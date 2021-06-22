@@ -27,7 +27,7 @@ The following instructions will guide you how to install FlightGear and run the 
      * Insert **6400** as the port of the simulator.
      * Press on the **connect** button.
        If the connection was successful a popup message will appear with the message **connection successfully**
-       If the connection failed a popup message will appear with the message **connectin failure**
+       If the connection failed a popup message will appear with the message **connection failure**
        If the data is invalid (null or empty) a popup message will appear with the message **invalid data**
    * ### Remote Control:
      **This controls will be enabled only after connection to the simulator** 
@@ -38,10 +38,10 @@ The following instructions will guide you how to install FlightGear and run the 
 ## Project Structure
  
   The project structure is based on Android App structure, we will explore the main parts:
-  1. **Manifests folder** : this folder contains AndroidManifest.xml file for creating the android applicatin.
+  1. **Manifests folder** : this folder contains AndroidManifest.xml file for creating the android application.
   2. **Java folder** : this folder contains all the java source code. 
       The project architecture is based on MVVM design pattern.Therefore, this folder divide into three main parts:
-      * **Model** : the model holds the logic buisness: connect to the fg, and send to the        simulator the new values of the aircraft. The model run the requests in a different thread.
+      * **Model** : the model holds the logic business: connect to the fg, and send to the simulator the new values of the aircraft. The model run the requests in a different thread.
       * **ViewModel** : the view model implements the logic of the view, holds instance of the model. The view model link between the Model and the View
       * **View** : the view represents the UI of the app. Has the MainActivity class and a class for the joystick view.
   3. **Resource folder** : this folder contains the XML layouts, UI strings and more.
@@ -50,8 +50,8 @@ The following instructions will guide you how to install FlightGear and run the 
   4. **build.gradle** :  defines the app module build configuration.
 
 ## Features and Design Patterns
-   * Show a popup message if the connection success/ connection falied/ ip or port is empty.
-   * Using Thread Pool design pattern in order to run the logic in the model in a differnrt thread than the main activity thread.
+   * Show a popup message if the connection success/ connection failed/ ip or port is empty.
+   * Using Thread Pool design pattern in order to run the logic in the model in a different thread than the main activity thread.
    * Using dependency injection with Strategy Pattern in the Joystick view in order to make this class reusable in other projects.
    * The controls in the view (joystick and seek bars) will be enabled only after connection to the simulator
    
