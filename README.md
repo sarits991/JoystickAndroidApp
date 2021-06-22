@@ -62,3 +62,7 @@ The following instructions will guide you how to install FlightGear and run the 
 The class diagram has three layers according to MVVM architecture : Model, ViewModel, View
 
 ![ClassDiagram](https://github.com/sarits991/JoystickAndroidApp/blob/develop/attached_files/ClassDiagram.png)
+
+
+## Presentation
+[Download the presentation video](https://github.com/sarits991/JoystickAndroidApp/blob/develop/attached_files/Presentation.mp4)
